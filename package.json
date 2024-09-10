@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hemanthlepcha/blog-backend.git"
+  },
+  "author": "hemanth lepcha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hemanthlepcha/blog-backend/issues"
+  },
+  "homepage": "https://github.com/Hemanthlepcha/blog-backend#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.8.1",
+    "nodemon": "^3.1.4"
+  }
+}
