@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import { dbConnect } from "./app/config/database.js";
-import { route } from "./app/Router/index.js";
+import { Router } from "./app/Router/index.js";
 const app = express();
 const PORT = process.env.PORT;
 console.log("Port", PORT);
@@ -10,8 +10,7 @@ console.log("Port", PORT);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dbConnect();
-
-route(app);
+app.use("/api", Router);
 app.use("/blog", (req, res, next) => {
   res.send("Blog is here");
 });
