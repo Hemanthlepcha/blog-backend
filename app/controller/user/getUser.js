@@ -2,9 +2,10 @@ import { User } from "../../Model/user.js";
 
 export const getUser = async (req, res) => {
   const { id } = req.params; // Fixing destructuring
+  console.log("Id", id);
   try {
     if (id) {
-      const user = await User.findById(id);
+      const user = await User.findOne({ id });
       if (user) {
         res.status(200).json(user);
       } else {
