@@ -1,20 +1,21 @@
-import { Blog } from "../../Model/blog";
+import { Blog } from "../../Model/blog.js";
 
-export const createBlog = (req, res) => {
-  const { tittle, date, image, description } = req.body;
+export const createBlog = async (req, res) => {
+  const { title, date, image, description } = req.body;
+  console.log("title", req.body);
   try {
     const post = new Blog({
-      title: tittle,
+      title: title,
       data: date,
       image: image,
       description: description,
     });
-    const savedPost = post.save();
+    const savedPost = await post.save();
     res.status(200).json({
       success: true,
       data: savedPost,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error creating post" });
+    res.status(500).json({ message: error });
   }
 };
