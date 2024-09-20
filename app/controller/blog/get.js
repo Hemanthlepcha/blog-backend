@@ -21,11 +21,13 @@ export const getBlog = (req, res) => {
 
 export const getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    // Find all blogs and populate the 'author' field to get full user data
+    const blogs = await Blog.find().populate("author");
+
     res.status(200).json(blogs);
   } catch (error) {
     res
       .status(500)
-      .json({ error: error.message, message: "Error fetching blogs" }); // Correct error handling
+      .json({ error: error.message, message: "Error fetching blogs" });
   }
 };
