@@ -1,7 +1,8 @@
 import { User } from "../../Model/user.js";
 export const createUser = async (req, res) => {
   try {
-    // Create a new user instance
+    //TODO:check whether is registered or not
+    //hash the password
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
