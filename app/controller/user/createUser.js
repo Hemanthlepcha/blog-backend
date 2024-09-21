@@ -1,23 +1,25 @@
 import { User } from "../../Model/user.js";
+import bcrypt from "bcrypt";
 export const createUser = async (req, res) => {
+  const { name, email, password } = req.body;
   try {
     //TODO:check whether is registered or not
-    //hash the password
+    //hash the passwor
+    const saltRound = 10000;
+    const hPassword = await bcrypt.hash(password, saltRound);
     const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password, // Hashing should be done here if needed
+      name: name,
+      email: email,
+      password: hPassword,
     });
-    // Save the user to the database
-    const savedUser = await newUser.save(); // Use await here to ensure it's saved before sending a response
+    const savedUser = await newUser.save();
     console.log("New User data", savedUser);
-    // Send a successful response with status code 200 and JSON content
     res.status(200).json({
       success: true,
       data: savedUser,
     });
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Error while creating user",
