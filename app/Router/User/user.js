@@ -12,5 +12,5 @@ userRoute.post("/createUser", createUser);
 userRoute.get("/getUser/:id", getUser);
 userRoute.get("/getUsers", getUsers);
 userRoute.delete("/delete/:id", deleteUser);
-userRoute.get("/logIn", logIn);
+userRoute.post("/logIn", logIn);
 export const userRouter = userRoute;

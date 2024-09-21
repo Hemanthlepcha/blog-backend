@@ -5,8 +5,10 @@ import dotenv from "dotenv";
 dotenv.config();
 export const logIn = async (req, res) => {
   const { email, password } = req.body;
+
+  console.log(req.body.email);
   try {
-    const user = await User.findOne(email);
+    const user = await User.findOne({ email });
     if (user) {
       const checkPassword = await bcrypt.compare(password, user.password);
       if (!checkPassword) {
@@ -19,7 +21,7 @@ export const logIn = async (req, res) => {
           expiresIn: "1h",
         },
       );
-      res.status(200).json({
+      return res.status(200).json({
         message: "Login successful",
         token, // Include the token if using JWT-based authentication
         user: {
