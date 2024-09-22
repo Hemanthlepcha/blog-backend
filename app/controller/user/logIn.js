@@ -9,13 +9,16 @@ export const logIn = async (req, res) => {
   console.log(req.body.email);
   try {
     const user = await User.findOne({ email });
+    console.log(user);
     if (user) {
       const checkPassword = await bcrypt.compare(password, user.password);
+      console.log("check", checkPassword);
       if (!checkPassword) {
-        res.status(401).json({ message: "Invalid Credentials" });
+        return res.status(401).json({ message: "Invalid Credentials" });
       }
+      console.log("secret", process.env.SECRET_JWT);
       const token = jwt.sign(
-        { user: user.id, email: user.email },
+        { user: user._id, email: user.email },
         process.env.SECRET_JWT,
         {
           expiresIn: "1h",

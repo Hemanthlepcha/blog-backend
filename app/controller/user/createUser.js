@@ -1,20 +1,33 @@
 import { User } from "../../Model/user.js";
 import bcrypt from "bcrypt";
+
 export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
+
   try {
-    //TODO:check whether is registered or not
-    //hash the passwor
-    const saltRound = 10000;
+    // Check if the email is already registered
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exists with this email.",
+      });
+    }
+
+    // Hash the password
+    const saltRound = 10; // Recommended to use 10 for salt rounds
     const hPassword = await bcrypt.hash(password, saltRound);
+
     const newUser = new User({
-      name: name,
-      email: email,
+      name,
+      email,
       password: hPassword,
     });
+
     const savedUser = await newUser.save();
     console.log("New User data", savedUser);
-    res.status(200).json({
+
+    res.status(201).json({
       success: true,
       data: savedUser,
     });
