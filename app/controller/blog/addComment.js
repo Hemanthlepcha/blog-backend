@@ -1,9 +1,8 @@
-import { Blog } from "../../Model/blog.js"; // Adjust the path as necessary
-import { User } from "../../Model/user.js"; // Assuming you might want to verify the user
+import { Blog } from "../../Model/blog.js";
 
 export const addComment = async (req, res) => {
-  const { id } = req.params; // Blog post ID from the URL
-  const { userId, text } = req.body; // User ID and comment text from the request body
+  const { id } = req.params;
+  const { userId, text } = req.body;
 
   try {
     if (!text || !userId) {
@@ -12,14 +11,14 @@ export const addComment = async (req, res) => {
         .json({ message: "User ID and comment text are required" });
     }
 
-    const blog = await Blog.findOne({ id }); // Find the blog post by its ID
+    const blog = await Blog.findOne({ id });
     if (!blog) {
       return res.status(404).json({ message: "Blog post not found" });
     }
 
     // Add the comment
     blog.comments.push({ user: userId, text });
-    await blog.save(); // Save the updated blog post
+    await blog.save();
 
     res.status(201).json({ message: "Comment added successfully", blog });
   } catch (error) {

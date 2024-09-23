@@ -6,7 +6,6 @@ export const getUser = async (req, res) => {
 
   try {
     if (id) {
-      // Find user by id and populate the 'blogs' and 'likedBlogs' fields
       const user = await User.findOne({ id })
         .populate("blogs")
         .populate("likedBlogs");
@@ -33,6 +32,6 @@ export const getUsers = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: error.message, message: "Error fetching users" }); // Correct error handling
+      .json({ error: error.message, message: "Error fetching users" });
   }
 };

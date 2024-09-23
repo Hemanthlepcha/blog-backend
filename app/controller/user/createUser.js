@@ -5,7 +5,6 @@ export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // Check if the email is already registered
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
@@ -15,7 +14,7 @@ export const createUser = async (req, res) => {
     }
 
     // Hash the password
-    const saltRound = 10; // Recommended to use 10 for salt rounds
+    const saltRound = 10;
     const hPassword = await bcrypt.hash(password, saltRound);
 
     const newUser = new User({

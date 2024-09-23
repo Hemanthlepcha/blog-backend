@@ -5,19 +5,18 @@ export const deleteUser = async (req, res) => {
   console.log("Id from delete", id);
   try {
     if (id) {
-      // Query by the custom `id` field which stores the UUID
       const result = await User.deleteOne({ id });
       if (result.deletedCount > 0) {
-        res.status(200).json({ message: "User deleted successfully" }); // Return JSON with a status of 200
+        res.status(200).json({ message: "User deleted successfully" });
       } else {
-        res.status(404).json({ message: "User not found" }); // Return JSON for not found
+        res.status(404).json({ message: "User not found" });
       }
     } else {
-      res.status(404).json({ message: "User not found" }); // No id provided
+      res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
     res
       .status(500)
-      .json({ error: error.message, message: "Error while deleting user" }); // Return JSON for errors
+      .json({ error: error.message, message: "Error while deleting user" });
   }
 };

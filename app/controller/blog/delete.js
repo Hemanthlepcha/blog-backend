@@ -6,21 +6,19 @@ export const deleteBlog = async (req, res) => {
   console.log("Id from delete", id);
   try {
     if (id) {
-      // Query by the custom `id` field which stores the UUID
       const result = await Blog.deleteOne({ id });
 
-      // Check if the blog post was successfully deleted
       if (result.deletedCount > 0) {
-        res.status(200).json({ message: "Post deleted successfully" }); // Return JSON with a status of 200
+        res.status(200).json({ message: "Post deleted successfully" });
       } else {
-        res.status(404).json({ message: "Post not found" }); // Return JSON if no post is found
+        res.status(404).json({ message: "Post not found" });
       }
     } else {
-      res.status(400).json({ message: "Invalid request, blog ID is required" }); // Return 400 for missing ID
+      res.status(400).json({ message: "Invalid request, blog ID is required" });
     }
   } catch (error) {
     res
       .status(500)
-      .json({ error: error.message, message: "Error while deleting post" }); // Return JSON for errors
+      .json({ error: error.message, message: "Error while deleting post" });
   }
 };

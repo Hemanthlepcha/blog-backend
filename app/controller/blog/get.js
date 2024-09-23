@@ -21,7 +21,6 @@ export const getBlog = (req, res) => {
 
 export const getBlogs = async (req, res) => {
   try {
-    // Find all blogs and populate the 'author' field to get full user data
     const blogs = await Blog.find().populate("author");
 
     res.status(200).json(blogs);

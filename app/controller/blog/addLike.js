@@ -1,29 +1,27 @@
 import { Blog } from "../../Model/blog.js";
 
 export const likeBlog = async (req, res) => {
-  const { id } = req.params; // Blog post ID from the URL
-  const { userId } = req.body; // User ID from the request body
+  const { id } = req.params;
+  const { userId } = req.body;
 
   try {
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
     }
 
-    const blog = await Blog.findOne({ id }); // Find the blog post by its ID
+    const blog = await Blog.findOne({ id });
     if (!blog) {
       return res.status(404).json({ message: "Blog post not found" });
     }
 
-    // Check if the user has already liked the blog
     if (blog.likes.includes(userId)) {
       return res
         .status(400)
         .json({ message: "You have already liked this post" });
     }
 
-    // Add the user's ID to the likes array
     blog.likes.push(userId);
-    await blog.save(); // Save the updated blog post
+    await blog.save();
 
     res.status(200).json({ message: "Blog liked successfully", blog });
   } catch (error) {
