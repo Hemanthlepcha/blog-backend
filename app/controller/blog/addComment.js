@@ -11,16 +11,16 @@ export const addComment = async (req, res) => {
         .json({ message: "User ID and comment text are required" });
     }
 
-    const blog = await Blog.findOne({ id });
-    if (!blog) {
+    const foundBlog = await Blog.findOne({ id });
+    if (!foundBlog) {
       return res.status(404).json({ message: "Blog post not found" });
     }
 
     // Add the comment
-    blog.comments.push({ user: userId, text });
-    await blog.save();
+    foundBlog.comments.push({ user: userId, text });
+    await foundBlog.save();
 
-    res.status(201).json({ message: "Comment added successfully", blog });
+    res.status(201).json({ message: "Comment added successfully", foundBlog });
   } catch (error) {
     res
       .status(500)

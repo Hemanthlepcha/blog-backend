@@ -9,21 +9,21 @@ export const likeBlog = async (req, res) => {
       return res.status(400).json({ message: "User ID is required" });
     }
 
-    const blog = await Blog.findOne({ id });
-    if (!blog) {
+    const foundBlog = await Blog.findOne({ id });
+    if (!foundBlog) {
       return res.status(404).json({ message: "Blog post not found" });
     }
 
-    if (blog.likes.includes(userId)) {
+    if (foundBlog.likes.includes(userId)) {
       return res
         .status(400)
         .json({ message: "You have already liked this post" });
     }
 
-    blog.likes.push(userId);
-    await blog.save();
+    foundBlog.likes.push(userId);
+    await foundBlog.save();
 
-    res.status(200).json({ message: "Blog liked successfully", blog });
+    res.status(200).json({ message: "Blog liked successfully", foundBlog });
   } catch (error) {
     res
       .status(500)
