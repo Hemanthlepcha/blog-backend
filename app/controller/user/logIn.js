@@ -7,6 +7,7 @@ export const logIn = async (req, res) => {
   const { email, password } = req.body;
 
   console.log(req.body.email);
+  console.log(req.body.password);
   try {
     const user = await User.findOne({ email });
     console.log(user);
@@ -24,7 +25,13 @@ export const logIn = async (req, res) => {
           expiresIn: "1h",
         },
       );
-      return res.status(200).json({
+      res.cookie("token", jwtToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict",
+      });
+
+      res.status(200).json({
         message: "Login successful",
         token,
         user: {

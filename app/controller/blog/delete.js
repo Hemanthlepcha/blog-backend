@@ -2,8 +2,6 @@ import { Blog } from "../../Model/blog.js";
 
 export const deleteBlog = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
-  console.log("Id from delete", id);
   try {
     if (id) {
       const result = await Blog.deleteOne({ id });

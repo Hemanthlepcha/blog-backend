@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
-
+  console.log("createUser Name:", name);
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -24,7 +24,6 @@ export const createUser = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    console.log("New User data", savedUser);
 
     res.status(201).json({
       success: true,
